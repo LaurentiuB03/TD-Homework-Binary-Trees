@@ -1,3 +1,60 @@
+var string = "ceau imi place sa mananc aicea";
+
+function getFrequency(string) {
+  var freq = {};
+  for (var i=0; i<string.length;i++) {
+      var character = string.charAt(i);
+      if (freq[character]) {
+         freq[character]++;
+      } else {
+         freq[character] = 1;
+      }
+  }
+
+  return freq;
+};
+
+function buildtree(letters){
+  while(letters.length>1){
+      var leasttwo = letters.slice(0,2);
+      var therest = letters.slice(2,letters.length);
+      var combfreq = letters[0][0] + letters[1][0];
+      letters = therest;
+      //console.log(letters);
+      var two = [combfreq,leasttwo];
+      letters.push(two);
+      //console.log(letters);
+      letters.sort();
+}
+  return letters[0];
+}
+
+function convertToJSON(array) {
+  var objArray = [];
+  for (var i = 1; i < array.length; i++) {
+    objArray[i - 1] = {};
+    for (var k = 0; k < array[0].length && k < array[i].length; k++) {
+      var key = array[0][k];
+      objArray[i - 1][key] = array[i][k]
+    }
+  }
+
+  return objArray;
+}
+
+freqArray = getFrequency(string);
+var arr = Object.entries(freqArray);
+var sortedArray = arr.sort(function(a, b) {
+  return a[1]-b[1];
+});
+
+var sortedTree = buildtree(sortedArray);
+var treeTest = convertToJSON(sortedTree);
+console.log(treeTest);
+
+
+
+
 var treeData = {
   name: "A0",
   children: [
@@ -29,6 +86,9 @@ var treeData = {
     },
   ],
 };
+
+
+
 
 // Set the dimensions and margins of the diagram
 var margin = { top: 20, right: 90, bottom: 30, left: 90 },
